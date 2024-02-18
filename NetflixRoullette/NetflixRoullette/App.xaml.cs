@@ -13,6 +13,7 @@ namespace NetflixRoullette
             InitializeComponent();
             DependencyService.Register<IMoviesService, InMemoryMoviesService>();
             DependencyService.Register<IUserService, InMemoryUsersService>();
+            DependencyService.Register<IActorService, InMemoryActorsService>();
 
             MainPage = new MainPage();
         }

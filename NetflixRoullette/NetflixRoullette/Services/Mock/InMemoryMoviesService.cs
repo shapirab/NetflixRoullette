@@ -2,41 +2,79 @@
 using NetflixRoullette.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace NetflixRoullette.Services.Mock
 {
     public class InMemoryMoviesService : IMoviesService
     {
-        public Task<bool> AddMovieAsync(Movie movie)
+        private List<Movie> _movies;
+        private IActorService _actorService;
+        
+        public InMemoryMoviesService()
         {
-            throw new NotImplementedException();
+            _movies = new List<Movie>()
+            {
+                new Movie{ Id = 1, Title = "Shrek", CoverUrl = ""},
+                new Movie{ Id = 2, Title = "Cinderella", CoverUrl = ""},
+                new Movie{ Id = 3, Title = "Goofie", CoverUrl = ""}
+            };
+            _actorService = DependencyService.Get<IActorService>();
         }
 
-        public Task<bool> DeleteMovieAsync(int movieId)
+       
+
+        public async Task<bool> AddMovieAsync(Movie movie)
         {
-            throw new NotImplementedException();
+            _movies.Add(movie);
+            return true;
         }
 
-        public Task<IEnumerable<Movie>> GetAllMoviesAsync()
+        public async Task<bool> DeleteMovieAsync(int movieId)
         {
-            throw new NotImplementedException();
+            Movie movieToDelete = await GetMovieAsync(movieId); 
+            _movies.Remove(movieToDelete);
+            return true;
         }
 
-        public Task<Movie> GetMovieAsync(int movieId)
+        public async Task<IEnumerable<Movie>> GetAllMoviesAsync()
         {
-            throw new NotImplementedException();
+            return _movies;
         }
 
-        public Task<IEnumerable<Movie>> GetMoviesByActor(int actorId)
+        public async Task<Movie> GetMovieAsync(int movieId)
         {
-            throw new NotImplementedException();
+            return _movies.Where(movie => movie.Id == movieId).FirstOrDefault();
         }
 
-        public Task<bool> UpdateMovieAsync(Movie movie)
+        public async Task<IEnumerable<Movie>> GetMoviesByActor(int actorId)
         {
-            throw new NotImplementedException();
+            Actor actor = await _actorService.GetActorAsync(actorId);
+            return _movies.Where(movie => movie.Actors.Contains(actor));
+        }
+
+        public async Task<bool> UpdateMovieAsync(Movie movie)
+        {
+            Movie movieToUpdate = await GetMovieAsync(movie.Id);
+            if(movieToUpdate != null)
+            {
+                movieToUpdate.Title = movie.Title;
+                movieToUpdate.CoverUrl = movie.CoverUrl;
+                return true;
+            }
+            return false;
+        }
+
+        public async Task AddActorToMovieAsync(Actor actor, int movieId)
+        {
+            Movie movie = await GetMovieAsync(movieId);
+            if(movie != null)
+            {
+                movie.Actors.Add(actor);
+            }
         }
     }
 }
