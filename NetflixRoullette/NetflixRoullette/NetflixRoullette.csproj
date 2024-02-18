@@ -17,8 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\Interfaces\" />
-    <Folder Include="Services\Mock\" />
     <Folder Include="Services\Concrete\" />
     <Folder Include="ViewModels\" />
     <Folder Include="Views\" />

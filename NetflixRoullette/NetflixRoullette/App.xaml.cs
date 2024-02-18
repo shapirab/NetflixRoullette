@@ -1,4 +1,6 @@
-﻿using System;
+﻿using NetflixRoullette.Services.Interfaces;
+using NetflixRoullette.Services.Mock;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -9,6 +11,8 @@ namespace NetflixRoullette
         public App()
         {
             InitializeComponent();
+            DependencyService.Register<IMoviesService, InMemoryMoviesService>();
+            DependencyService.Register<IUserService, InMemoryUsersService>();
 
             MainPage = new MainPage();
         }
