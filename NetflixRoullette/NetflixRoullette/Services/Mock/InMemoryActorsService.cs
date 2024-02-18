@@ -2,6 +2,7 @@
 using NetflixRoullette.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,29 +10,51 @@ namespace NetflixRoullette.Services.Mock
 {
     public class InMemoryActorsService : IActorService
     {
-        public Task<bool> AddActorAsync(Actor actor)
+        List<Actor> _actors;
+        public InMemoryActorsService()
         {
-            throw new NotImplementedException();
+            _actors = new List<Actor>()
+            {
+                new Actor{Id = 1, FirstName = "Harison", LastName = "Ford"},
+                new Actor{Id = 2, FirstName = "Charlie", LastName = "Chaplin"},
+                new Actor{Id = 3, FirstName = "Natalie", LastName = "Wood"}
+            };
         }
 
-        public Task<bool> DeleteActorAsync(int actorId)
+
+        public async Task<bool> AddActorAsync(Actor actor)
         {
-            throw new NotImplementedException();
+            _actors.Add(actor);
+            return true;
         }
 
-        public Task<Actor> GetActorAsync(int actorId)
+        public async Task<bool> DeleteActorAsync(int actorId)
         {
-            throw new NotImplementedException();
+            Actor actorToDelete = await GetActorAsync(actorId);
+            _actors.Remove(actorToDelete);
+            return true;
         }
 
-        public Task<IEnumerable<Actor>> GetAllActors()
+        public async Task<Actor> GetActorAsync(int actorId)
         {
-            throw new NotImplementedException();
+            return _actors.Where(actor => actor.Id == actorId).FirstOrDefault();
         }
 
-        public Task<bool> UpdateActorAsync(Actor actor)
+        public async Task<IEnumerable<Actor>> GetAllActors()
         {
-            throw new NotImplementedException();
+            return _actors;
+        }
+
+        public async Task<bool> UpdateActorAsync(Actor actor)
+        {
+            Actor actorToUpdate = await GetActorAsync(actor.Id);
+            if(actorToUpdate != null)
+            {
+                actorToUpdate.FirstName = actor.FirstName;
+                actorToUpdate.LastName = actor.LastName;
+                return true;
+            }
+            return false;
         }
     }
 }
