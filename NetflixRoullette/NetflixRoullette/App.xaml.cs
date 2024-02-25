@@ -1,5 +1,6 @@
 ﻿using NetflixRoullette.Services.Interfaces;
 using NetflixRoullette.Services.Mock;
+using NetflixRoullette.Views;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -15,7 +16,7 @@ namespace NetflixRoullette
             DependencyService.Register<IUserService, InMemoryUsersService>();
             DependencyService.Register<IActorService, InMemoryActorsService>();
 
-            MainPage = new MainPage();
+            MainPage = new NavigationPage(new MoviesPageView());
         }
 
         protected override void OnStart()
