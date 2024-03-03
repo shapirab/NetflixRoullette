@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:NetflixRoullette.ViewModels"
-             x:Class="NetflixRoullette.Views.MoviesPageView">
+             x:Class="NetflixRoullette.Views.MoviesPageView" Title="Main Movies Page">
     <ContentPage.Resources>
         <ResourceDictionary>
             <vm:MoviesViewModel x:Key="viewModel"/>
@@ -10,9 +10,26 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="{Binding Source={StaticResource viewModel}, Path=Temp}"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <SearchBar Placeholder="Search by player..."/>
+            <ListView ItemsSource="{Binding Source={StaticResource viewModel}, Path=Movies}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="{Binding CoverUrl}" Grid.Column="0"/>
+                                <StackLayout Grid.Column="1">
+                                    <Label Text="{Binding Title}"/>
+                                    <Label Text="{Binding Year}"/>
+                                </StackLayout>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

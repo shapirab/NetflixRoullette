@@ -9,6 +9,7 @@ namespace NetflixRoullette.Models
         public int Id { get; set; }
         public string Title { get; set; }
         public string CoverUrl { get; set; }
+        public int Year { get; set; }
         public List<Actor> Actors { get; set; }
     }
 }
