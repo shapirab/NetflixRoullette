@@ -17,10 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\Concrete\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Update="Views\MoviesPageView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

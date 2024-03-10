@@ -18,15 +18,23 @@ namespace NetflixRoullette.Services.Mock
         {
             _movies = new List<Movie>()
             {
-                new Movie{ Id = 1, Title = "Shrek", CoverUrl = ""},
-                new Movie{ Id = 2, Title = "Cinderella", CoverUrl = ""},
-                new Movie{ Id = 3, Title = "Goofie", CoverUrl = ""}
+                new Movie{ Id = 1, Title = "Shrek", CoverUrl = "", Year = 1985},
+                new Movie{ Id = 2, Title = "Cinderella", CoverUrl = "", Year = 1950},
+                new Movie{ Id = 3, Title = "Goofie", CoverUrl = "", Year = 2010},
+                new Movie
+                {
+                    Id = 4,
+                    Title = "Terminator",
+                    CoverUrl = "",
+                    Year = 2015,
+                    Actors = new List<Actor>()
+                    {
+                        new Actor{ Id = 1, FirstName = "Harison", LastName = "Ford"}
+                    }
+                }
             };
             _actorService = DependencyService.Get<IActorService>();
         }
-
-       
-
         public async Task<bool> AddMovieAsync(Movie movie)
         {
             _movies.Add(movie);
@@ -40,6 +48,18 @@ namespace NetflixRoullette.Services.Mock
             return true;
         }
 
+        public async Task<bool> UpdateMovieAsync(Movie movie)
+        {
+            Movie movieToUpdate = await GetMovieAsync(movie.Id);
+            if (movieToUpdate != null)
+            {
+                movieToUpdate.Title = movie.Title;
+                movieToUpdate.CoverUrl = movie.CoverUrl;
+                return true;
+            }
+            return false;
+        }
+
         public async Task<IEnumerable<Movie>> GetAllMoviesAsync()
         {
             return _movies;
@@ -50,22 +70,22 @@ namespace NetflixRoullette.Services.Mock
             return _movies.Where(movie => movie.Id == movieId).FirstOrDefault();
         }
 
+        
+
         public async Task<IEnumerable<Movie>> GetMoviesByActor(int actorId)
         {
             Actor actor = await _actorService.GetActorAsync(actorId);
             return _movies.Where(movie => movie.Actors.Contains(actor));
         }
 
-        public async Task<bool> UpdateMovieAsync(Movie movie)
+        public async Task<IEnumerable<Movie>>GetMoviesByActor(string partialActorName)
         {
-            Movie movieToUpdate = await GetMovieAsync(movie.Id);
-            if(movieToUpdate != null)
-            {
-                movieToUpdate.Title = movie.Title;
-                movieToUpdate.CoverUrl = movie.CoverUrl;
-                return true;
-            }
-            return false;
+            IEnumerable<Movie>allMovies = await GetAllMoviesAsync();
+            var moviesWithActor = allMovies.Where(movie =>
+                movie.Actors.Any(actor =>
+                        actor.FirstName.ToLower().Contains(partialActorName.ToLower()) ||
+                        actor.LastName.ToLower().Contains(partialActorName.ToLower())));
+            return moviesWithActor;
         }
 
         public async Task AddActorToMovieAsync(Actor actor, int movieId)

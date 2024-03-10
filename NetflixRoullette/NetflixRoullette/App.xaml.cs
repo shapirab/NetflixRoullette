@@ -1,4 +1,5 @@
-﻿using NetflixRoullette.Services.Interfaces;
+﻿using NetflixRoullette.Services.Concrete;
+using NetflixRoullette.Services.Interfaces;
 using NetflixRoullette.Services.Mock;
 using NetflixRoullette.Views;
 using System;
@@ -15,6 +16,7 @@ namespace NetflixRoullette
             DependencyService.Register<IMoviesService, InMemoryMoviesService>();
             DependencyService.Register<IUserService, InMemoryUsersService>();
             DependencyService.Register<IActorService, InMemoryActorsService>();
+            DependencyService.Register<INavigationService, NavigationService>();
 
             MainPage = new NavigationPage(new MoviesPageView());
         }

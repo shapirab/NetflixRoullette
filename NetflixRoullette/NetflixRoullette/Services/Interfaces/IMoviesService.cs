@@ -14,6 +14,7 @@ namespace NetflixRoullette.Services.Interfaces
         Task AddActorToMovieAsync(Actor actor, int movieId);
         Task<Movie> GetMovieAsync(int movieId);
         Task<IEnumerable<Movie>>GetMoviesByActor(int actorId);
+        Task<IEnumerable<Movie>> GetMoviesByActor(string partialActorName);
         Task<IEnumerable<Movie>> GetAllMoviesAsync();
         
 
