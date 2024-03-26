@@ -57,9 +57,12 @@ namespace NetflixRoullette.ViewModels
             Refreshing = true;
             Movies.Clear();
             IEnumerable<Movie> searchResults = await moviesService.GetMoviesByActor(searchText);
-            foreach(Movie movie in searchResults)
+            foreach (Movie movie in searchResults)
             {
-                Movies.Add(movie);
+                if (movie != null && movie.Actors != null)
+                {
+                    Movies.Add(movie);
+                }
             }
             Refreshing = false;
         }

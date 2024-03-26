@@ -18,9 +18,16 @@ namespace NetflixRoullette.Services.Mock
         {
             _movies = new List<Movie>()
             {
-                new Movie{ Id = 1, Title = "Shrek", CoverUrl = "", Year = 1985},
-                new Movie{ Id = 2, Title = "Cinderella", CoverUrl = "", Year = 1950},
-                new Movie{ Id = 3, Title = "Goofie", CoverUrl = "", Year = 2010},
+                new Movie{ 
+                    Id = 1, Title = "Shrek", 
+                    CoverUrl = "", Year = 1985, 
+                    Actors = new List<Actor>()
+                    {
+                        new Actor { Id = 2, FirstName = "Robin", LastName = "Williams"}
+                    }
+                },
+                new Movie{ Id = 2, Title = "Cinderella", CoverUrl = "", Year = 1950, Actors = new List<Actor>()},
+                new Movie{ Id = 3, Title = "Goofie", CoverUrl = "", Year = 2010, Actors = new List<Actor>()},
                 new Movie
                 {
                     Id = 4,
@@ -29,7 +36,7 @@ namespace NetflixRoullette.Services.Mock
                     Year = 2015,
                     Actors = new List<Actor>()
                     {
-                        new Actor{ Id = 1, FirstName = "Harison", LastName = "Ford"}
+                        new Actor{ Id = 1, FirstName = "Harrison", LastName = "Ford"}
                     }
                 }
             };
@@ -80,8 +87,12 @@ namespace NetflixRoullette.Services.Mock
 
         public async Task<IEnumerable<Movie>>GetMoviesByActor(string partialActorName)
         {
+            if(partialActorName == null)
+            {
+                return await GetAllMoviesAsync();
+            }
             IEnumerable<Movie>allMovies = await GetAllMoviesAsync();
-            var moviesWithActor = allMovies.Where(movie =>
+            IEnumerable<Movie> moviesWithActor = allMovies.Where(movie =>
                 movie.Actors.Any(actor =>
                         actor.FirstName.ToLower().Contains(partialActorName.ToLower()) ||
                         actor.LastName.ToLower().Contains(partialActorName.ToLower())));
