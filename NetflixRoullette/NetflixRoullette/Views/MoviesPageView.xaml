@@ -10,7 +10,8 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
-            <SearchBar x:Name="searchBar" Placeholder="Search by player..."
+            <SearchBar x:Name="searchBar" Placeholder="Search by player..." 
+                       Text="{Binding Source={StaticResource viewModel}, Path=SearchText}"
                        SearchCommand="{Binding SearchByPlayerCommand, Source={StaticResource viewModel}}" 
                        SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
             <ListView ItemsSource="{Binding Source={StaticResource viewModel}, Path=Movies}">

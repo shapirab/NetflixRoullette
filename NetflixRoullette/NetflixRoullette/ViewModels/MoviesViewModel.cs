@@ -13,7 +13,7 @@ namespace NetflixRoullette.ViewModels
     {
         private readonly IMoviesService moviesService;
         private readonly INavigationService navigationService;
-        //private string searchText;
+        private string searchText;
 
         private bool refreshing;
 
@@ -23,11 +23,15 @@ namespace NetflixRoullette.ViewModels
             set => SetValue(ref refreshing, value);
         }
 
-        //public string SearchText
-        //{
-        //    get => searchText;
-        //    set => SetValue(ref searchText, value);
-        //}
+        public string SearchText
+        {
+            get => searchText;
+            set
+            {
+                SetValue(ref searchText, value);
+                SearchByPlayerCommand.Execute(value);
+            }
+        }
 
         public ICommand SearchByPlayerCommand => new Command<string>(SearchByPlayer);
 
@@ -56,7 +60,17 @@ namespace NetflixRoullette.ViewModels
         {
             Refreshing = true;
             Movies.Clear();
-            IEnumerable<Movie> searchResults = await moviesService.GetMoviesByActor(searchText);
+            
+            IEnumerable<Movie> searchResults; 
+            if(string.IsNullOrEmpty(searchText))
+            {
+                searchResults = await moviesService.GetAllMoviesAsync();
+            }
+            else
+            {
+                searchResults = await moviesService.GetMoviesByActor(searchText);
+            }
+            
             foreach (Movie movie in searchResults)
             {
                 if (movie != null && movie.Actors != null)
