@@ -14,7 +14,9 @@
                        Text="{Binding Source={StaticResource viewModel}, Path=SearchText}"
                        SearchCommand="{Binding SearchByPlayerCommand, Source={StaticResource viewModel}}" 
                        SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
-            <ListView ItemsSource="{Binding Source={StaticResource viewModel}, Path=Movies}">
+            <ListView ItemsSource="{Binding Source={StaticResource viewModel}, Path=Movies}"
+                       SelectedItem="{Binding  Source={StaticResource viewModel}, 
+                                        Path=SelectedMovie, Mode=TwoWay}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

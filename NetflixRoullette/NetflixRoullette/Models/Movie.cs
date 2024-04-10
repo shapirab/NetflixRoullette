@@ -11,5 +11,6 @@ namespace NetflixRoullette.Models
         public string CoverUrl { get; set; }
         public int Year { get; set; }
         public List<Actor> Actors { get; set; }
+        public string Description { get; set; }
     }
 }
