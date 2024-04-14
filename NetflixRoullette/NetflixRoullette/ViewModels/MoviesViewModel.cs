@@ -1,5 +1,6 @@
 ﻿using NetflixRoullette.Models;
 using NetflixRoullette.Services.Interfaces;
+using NetflixRoullette.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -99,7 +100,7 @@ namespace NetflixRoullette.ViewModels
 
         private async void NavigateToMovieDetails(Movie movie)
         {
-            await navigationService.DisplayAlert("Navigating", movie.Title, "OK");
+            await navigationService.PushAsync(new MovieDetailPageView(movie));
         }
     }
 }
