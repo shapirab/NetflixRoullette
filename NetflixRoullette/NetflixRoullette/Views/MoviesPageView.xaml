@@ -16,7 +16,8 @@
                        SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
             <ListView ItemsSource="{Binding Source={StaticResource viewModel}, Path=Movies}"
                        SelectedItem="{Binding  Source={StaticResource viewModel}, 
-                                        Path=SelectedMovie, Mode=TwoWay}">
+                                        Path=SelectedMovie, Mode=TwoWay}"
+                       HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -25,9 +26,12 @@
                                     <ColumnDefinition Width="100"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Image Source="{Binding CoverUrl}" Grid.Column="0"/>
+                                <Frame Grid.Column="0" Style="{StaticResource ThumbnailFrame}">
+                                    <Image Source="{Binding CoverUrl}"  Style="{StaticResource Thumbnail}"/>
+                                </Frame>
+                                
                                 <StackLayout Grid.Column="1">
-                                    <Label Text="{Binding Title}"/>
+                                    <Label Text="{Binding Title}" Style="{StaticResource Header}"/>
                                     <Label Text="{Binding Year}"/>
                                 </StackLayout>
                             </Grid>

@@ -20,19 +20,30 @@ namespace NetflixRoullette.Services.Mock
             {
                 new Movie{ 
                     Id = 1, Title = "Shrek", 
-                    CoverUrl = "", Year = 1985, 
+                    CoverUrl = "shrek.png", Year = 1985, 
                     Actors = new List<Actor>()
                     {
                         new Actor { Id = 2, FirstName = "Robin", LastName = "Williams"}
                     }
                 },
-                new Movie{ Id = 2, Title = "Cinderella", CoverUrl = "", Year = 1950, Actors = new List<Actor>()},
-                new Movie{ Id = 3, Title = "Goofie", CoverUrl = "", Year = 2010, Actors = new List<Actor>()},
+                new Movie{ 
+                    Id = 2, 
+                    Title = "Cinderella", 
+                    CoverUrl = "cinderella.png", 
+                    Year = 1950, 
+                    Actors = new List<Actor>()
+                },
+                new Movie{ 
+                    Id = 3, Title = "Goofie", 
+                    CoverUrl = "up.jpg", 
+                    Year = 2010, 
+                    Actors = new List<Actor>()
+                },
                 new Movie
                 {
                     Id = 4,
                     Title = "Terminator",
-                    CoverUrl = "",
+                    CoverUrl = "exterminator.png",
                     Year = 2015,
                     Actors = new List<Actor>()
                     {

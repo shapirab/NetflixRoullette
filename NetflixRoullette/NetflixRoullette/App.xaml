@@ -3,6 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NetflixRoullette.App">
     <Application.Resources>
-
+        <Style TargetType="Label" x:Key="Header">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+        </Style>
+        <Style TargetType="Image" x:Key="Thumbnail">
+            <Setter Property="Aspect" Value="AspectFill"/>
+            <!--<Setter Property="HeightRequest" Value="30.0"/>-->
+        </Style>
+        <Style TargetType="Frame" x:Key="ThumbnailFrame">
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="HasShadow" Value="False"/>
+        </Style>
     </Application.Resources>
 </Application>
