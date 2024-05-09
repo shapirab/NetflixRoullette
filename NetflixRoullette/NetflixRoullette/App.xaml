@@ -9,11 +9,26 @@
         </Style>
         <Style TargetType="Image" x:Key="Thumbnail">
             <Setter Property="Aspect" Value="AspectFill"/>
-            <!--<Setter Property="HeightRequest" Value="30.0"/>-->
         </Style>
         <Style TargetType="Frame" x:Key="ThumbnailFrame">
             <Setter Property="Padding" Value="5"/>
             <Setter Property="HasShadow" Value="False"/>
+        </Style>
+        <Style TargetType="Image" x:Key="FullImage">
+            <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+            <Setter Property="Aspect" Value="AspectFill"/>
+            <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+        </Style>
+        <Style TargetType="StackLayout" x:Key="Body">
+            <Setter Property="Padding" Value="20"/>
+        </Style>
+        <Style TargetType="Label" x:Key="BodyHeader">
+            <Setter Property="FontSize" Value="45"/>
+            <Setter Property="TextColor" Value="Black"/>
+        </Style>
+        <Style TargetType="Label" x:Key="BodyDesc">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="TextColor" Value="Black"/>
         </Style>
     </Application.Resources>
 </Application>
